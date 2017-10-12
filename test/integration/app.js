@@ -1,8 +1,18 @@
 describe('Routes Books', () => {
-    const defaultBook = {
+    const Books = app.datasource.models.Books,
+    defaultBook = {
         id: 1,
         name: 'Default Book'
     };
+
+    beforeEach(done => {
+        Books
+            .destroy({where: {}})
+            .then(() => Books.create(defaultBook))
+            .then(() => {
+                done();
+            });
+    });
 
     describe('Route Get /books', () => {
         it('Should return a list of books', done => {
